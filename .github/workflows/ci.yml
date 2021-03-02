@@ -72,3 +72,17 @@ jobs:
         uses: docker://oskarstark/phpstan-ga
         with:
           args: analyse src/
+          
+      - name: k6 load test
+        uses: k6io/action@v0.1
+        with:
+          filename: test.js
+      
+      
+      
+      
+      
+      
+      
+      
+      
