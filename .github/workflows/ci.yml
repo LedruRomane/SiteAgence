@@ -67,31 +67,7 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      # —— Symfony 🎵 ——————————————————————————————————————————————————————————
-      - name: Check Symfony requirements
-        run: vendor/bin/requirements-checker
-
-      - name: Check the Symfony console
-        run: |
-          bin/console about
-          bin/console strangebuzz:version
-      ## —— Coding standards ✨ ————————————————————————————————————————————————
-      # Can't handle PHP8 for now
-      - name: Coding standards checks (php_codesniffer + php-cs-fixer)
-        run: make cs
-        if: matrix.php-versions == '7.4'
-
-      ## —— Static analysis ✨ —————————————————————————————————————————————————
+      # —— Static analysis ✨ —————————————————————————————————————————————————
       - name: Static analysis of PHP code (PHPStan)
         run: make static-analysis
         if: matrix.php-versions == '7.4'
-
-      ## —— Tests ✅ ———————————————————————————————————————————————————————————
-      - name: Load Doctrine fixtures and populate the Elasticsearch indexes
-        run: |
-          make load-fixtures
-          make populate
-      - name: Run functionnal and unit tests
-        run: |
-          cp phpunit.xml.ci phpunit.xml
-          ./vendor/bin/phpunit --testsuite='main'
