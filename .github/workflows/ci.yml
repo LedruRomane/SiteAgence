@@ -68,6 +68,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       # —— Static analysis ✨ —————————————————————————————————————————————————
-      - name: Static analysis of PHP code (PHPStan)
-        run: make static-analysis
-        if: matrix.php-versions == '7.4'
+      - name: PHPStan
+        uses: docker://oskarstark/phpstan-ga
+        with:
+          args: analyse src/
