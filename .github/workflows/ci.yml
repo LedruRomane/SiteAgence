@@ -65,7 +65,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)" && exit 1
 
       # —— Static analysis ✨ —————————————————————————————————————————————————
       - name: PHPStan
